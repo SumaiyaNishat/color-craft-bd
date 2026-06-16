@@ -1,45 +1,42 @@
+import Image from "next/image";
 import Link from "next/link";
 
-export default function ProductCard({
-  product,
-}) {
+export default function ProductCard({ product }) {
   return (
-    <div className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
-
+    <div className="card bg-base-100 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+      
       <figure>
-        <img
+        <Image
           src={product.image}
           alt={product.title}
-          className="h-64 w-full object-cover"
+          width={400}
+          height={300}
+          className="h-60 w-full object-cover"
         />
       </figure>
 
       <div className="card-body">
-
         <h2 className="card-title">
           {product.title}
         </h2>
 
-        <p>{product.shortDesc}</p>
-
-        <p className="font-bold text-primary">
-          ${product.price}
+        <p className="text-sm text-base-content/70">
+          {product.description}
         </p>
 
-        <div className="card-actions justify-end">
+        <div className="flex items-center justify-between mt-4">
+          <span className="font-bold text-neutral">Price:
+            ${product.price}
+          </span>
 
           <Link
             href={`/items/${product.id}`}
+            className="btn btn-secondary btn-sm"
           >
-            <button className="btn btn-primary">
-              View Details
-            </button>
+            View Details
           </Link>
-
         </div>
-
       </div>
-
     </div>
   );
 }

@@ -1,11 +1,14 @@
 import Image from "next/image";
 
-import Link from "next/link";
+import Hero from "./components/home/Hero";
 
 export default function HomePage() {
   return (
     <div>
-      
+      {/* Hero Section */}
+      <Hero></Hero>
+
+     
     </div>
   );
 }

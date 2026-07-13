@@ -2,24 +2,28 @@
 
 import Link from "next/link";
 import { useAuth } from "@/context/AuthProvider";
+import { usePathname } from "next/navigation";
+
 
 const Navbar = () => {
 const { user, logout } = useAuth();
 
+const pathname = usePathname();
+
 const navLinks = (
-<> <li> <Link href="/">Home</Link> </li>
+<> <li> <Link className="hover:text-primary transition-colors duration-300" href="/">Home</Link> </li>
 
 
   <li>
-    <Link href="/items">Products</Link>
+    <Link className="hover:text-primary transition-colors duration-300" href="/items">Products</Link>
   </li>
 
   <li>
-    <Link href="/collections">Collections</Link>
+    <Link className="hover:text-primary transition-colors duration-300" href="/collections">Collections</Link>
   </li>
 
   <li>
-    <Link href="/about">About</Link>
+    <Link className="hover:text-primary transition-colors duration-300" href="/about">About</Link>
   </li>
 
 </>
@@ -28,7 +32,7 @@ const navLinks = (
 );
 
 return ( 
-<div className="navbar bg-base-100 shadow-md sticky top-0 z-50 px-4">
+<div className="navbar bg-base-100/90 backdrop-blur-lg border-b border-base-300 sticky top-0 z-50">
 {/* Left Side */} <div className="navbar-start">
 {/* Mobile Menu */} <div className="dropdown lg:hidden"> <label tabIndex={0} className="btn btn-ghost"> <svg
            xmlns="http://www.w3.org/2000/svg"
@@ -54,11 +58,23 @@ return (
 
     {/* Logo */}
     <Link
-      href="/"
-      className="text-2xl font-bold text-primary"
-    >
+  href="/"
+  className="flex items-center gap-2"
+>
+  <span className="text-3xl"></span>
+
+  <div>
+
+    <h1 className="text-2xl font-bold text-primary">
       ColorCraft
-    </Link>
+    </h1>
+
+    <p className="text-xs opacity-70">
+      Handmade Jewelry
+    </p>
+
+  </div>
+</Link>
   </div>
 
   {/* Center Menu */}
@@ -72,11 +88,11 @@ return (
   <div className="navbar-end">
     {!user ? (
       <div className="flex gap-2">
-        <Link href="/login" className="btn btn-primary">
+        <Link href="/login" className="btn btn-primary rounded-full px-6">
           Login
         </Link>
 
-        <Link href="/register" className="btn btn-outline">
+        <Link href="/register" className="btn btn-outline rounded-full px-6">
           Register
         </Link>
       </div>
@@ -86,7 +102,19 @@ return (
           tabIndex={0}
           className="btn btn-ghost rounded-btn"
         >
-          {user?.displayName || user?.email}
+          <div className="avatar placeholder">
+
+  <div className="bg-primary text-white rounded-full w-10">
+
+    <span>
+
+      {user?.email?.charAt(0).toUpperCase()}
+
+    </span>
+
+  </div>
+
+</div>
         </label>
 
         <ul
@@ -94,28 +122,45 @@ return (
           className="menu dropdown-content z-[100] mt-3 w-64 rounded-box bg-base-100 p-2 shadow"
         >
           <li className="menu-title">
-            <span>User Information</span>
-          </li>
 
-          <li>
-            <span className="text-xs break-all">
-              {user?.email}
-            </span>
-          </li>
+  <span>
+    Welcome
+  </span>
+
+</li>
+
+<li>
+
+  <span className="font-semibold">
+    {user?.displayName || "User"}
+  </span>
+
+</li>
+
+<li>
+
+  <span className="text-xs">
+
+    {user?.email}
+
+  </span>
+
+</li>
 
           <div className="divider my-1"></div>
 
-          <li>
-            <Link href="/items/add">
-              Add Product
-            </Link>
-          </li>
+         <li>
+  <Link href="/items/add">
+    ➕ Add Product
+  </Link>
+</li>
 
-          <li>
-            <Link href="/items/manage">
-              Manage Products
-            </Link>
-          </li>
+<li>
+  <Link href="/items/manage">
+    📦 Manage Products
+  </Link>
+</li>
+
 
           <div className="divider my-1"></div>
 
